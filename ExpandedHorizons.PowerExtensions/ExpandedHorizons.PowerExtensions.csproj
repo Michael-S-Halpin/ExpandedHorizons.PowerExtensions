@@ -6,6 +6,16 @@
         <Nullable>enable</Nullable>
         <RootNamespace>PowerExtensions</RootNamespace>
         <PackageIcon>ExpandedHorizons.png</PackageIcon>
+        <PackageVersion>1.0.1</PackageVersion>
+        <Title>ExpandedHorizons.PowerExtensions</Title>
+        <Authors>Michael S. Halpin</Authors>
+        <Description>A collection of extensions for .NET 6 geared toward automation projects.</Description>
+        <Copyright>2022</Copyright>
+        <PackageProjectUrl>https://github.com/Michael-S-Halpin/ExpandedHorizons.PowerExtensions</PackageProjectUrl>
+        <PackageLicenseUrl>https://www.mit.edu/~amini/LICENSE.md</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Michael-S-Halpin/ExpandedHorizons.PowerExtensions</RepositoryUrl>
+        <RepositoryType>GIT</RepositoryType>
+        <PackageReleaseNotes>Contains several extensions of System.String.</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
