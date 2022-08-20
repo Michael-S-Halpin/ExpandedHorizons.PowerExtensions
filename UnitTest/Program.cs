@@ -14,6 +14,17 @@ t[10] = "Mask me.".Mask();
 t[11] = "Byte me!".ToBytes();
 t[12] = ((byte[])t[11]).ToByteString();
 
+var q0 = new List<string>(new[] { "one", "two", "three" });
+var q1 = new List<int>(new[] { 1, 2, 3 });
+var q2 = new List<decimal>(new[] { 1.1m, 2.2m, 3.3m });
+
+var w0 = q0.ToJson();
+var w1 = q1.ToJson();
+var w2 = q2.ToJson();
+
+var e0 = w0.IsValidJson();
+var e1 = "{Not:\"Valid\"}".IsValidJson();
+
 foreach (var item in t)
 {
     Console.WriteLine(item.ToString());

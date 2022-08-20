@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>PowerExtensions</RootNamespace>
         <PackageIcon>ExpandedHorizons.png</PackageIcon>
-        <PackageVersion>1.0.1</PackageVersion>
+        <PackageVersion>1.0.4</PackageVersion>
         <Title>ExpandedHorizons.PowerExtensions</Title>
         <Authors>Michael S. Halpin</Authors>
         <Description>A collection of extensions for .NET 6 geared toward automation projects.</Description>
@@ -24,6 +24,10 @@
         <PackagePath></PackagePath>
         <Link>ExpandedHorizons.png</Link>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
 </Project>
