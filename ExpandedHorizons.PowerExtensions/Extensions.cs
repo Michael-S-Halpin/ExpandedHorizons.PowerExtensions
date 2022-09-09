@@ -218,7 +218,7 @@ public static class Extensions
         }
 
         return text;
-    } // Convert the specified integer to the byte array.
+    }
 
     /// <summary>
     /// Returns true if this string is a properly formatted Json string.
@@ -298,6 +298,184 @@ public static class Extensions
     }
 
     #endregion
+    
+    #region Object Extensions
+
+    /// <summary>
+    /// Returns true if this object is a valid DateTime.
+    /// </summary>
+    /// <param name="value">This string</param>
+    /// <returns>bool</returns>
+    public static bool IsDateTime(this object value)
+    {
+        return value.ToString()!.IsDateTime();
+    }
+    
+    /// <summary>
+    /// Returns true if this object is numeric, including formatted numbers with commas and currency signs.
+    /// </summary>
+    /// <param name="value">This string</param>
+    /// <returns>bool</returns>
+    public static bool IsNumeric(this object value)
+    {
+        return value.ToString()!.IsNumeric();
+    }
+    
+    /// <summary>
+    /// Returns true of this object is a strict number.
+    /// </summary>
+    /// <param name="value">This string</param>
+    /// <returns>bool</returns>
+    public static bool IsNumber(this object value)
+    {
+        return value.ToString()!.IsNumber();
+    }
+    
+    /// <summary>
+    /// Remove all instances of text in this object.
+    /// </summary>
+    /// <param name="value">This string</param>
+    /// <param name="text">The string to remove.</param>
+    /// <returns>string</returns>
+    public static string Remove(this object value, string text)
+    {
+        return value.ToString()!.Remove(text);
+    }
+
+    /// <summary>
+    /// Returns whether or not this object is null or empty.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <returns>bool</returns>
+    public static bool IsNullOrEmpty(this object value)
+    {
+        return value.ToString()!.IsNullOrEmpty();
+    }
+
+    /// <summary>
+    /// Returns whether or not this object is null, empty, or white space.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <returns>bool</returns>
+    public static bool IsNullOrWhiteSpace(this object value)
+    {
+        return value.ToString()!.IsNullOrWhiteSpace();
+    }
+
+    /// <summary>
+    /// Converts this object to a short.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <returns>short</returns>
+    public static short ToShort(this object value)
+    {
+        return value.ToString()!.ToShort();
+    }
+
+    /// <summary>
+    /// Converts this object to an integer.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <returns>short</returns>
+    public static int ToInt(this object value)
+    {
+        return value.ToString()!.ToInt();
+    }
+
+    /// <summary>
+    /// Converts this object to a long integer.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <returns>short</returns>
+    public static long ToLong(this object value)
+    {
+        return value.ToString()!.ToLong();
+    }
+
+    /// <summary>
+    /// Converts this object to a decimal.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <returns>short</returns>
+    public static decimal ToDecimal(this object value)
+    {
+        return value.ToString()!.ToDecimal();
+    }
+
+    /// <summary>
+    /// Converts this object to a double.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <returns>short</returns>
+    public static double ToDouble(this object value)
+    {
+        return value.ToString()!.ToDouble();
+    }
+
+    /// <summary>
+    /// Converts this object to a date time.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <param name="format">The particular format to parse for.</param>
+    /// <returns>short</returns>
+    public static DateTime ToDateTime(this object value, string format = "")
+    {
+        return value.ToString()!.ToDateTime(format);
+    }
+
+    /// <summary>
+    /// Encodes this object to a byte array with the specified encoding. 
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <param name="encoder">The type of encoding to perform. (BigEndianUnicode excluded)</param>
+    /// <returns>byte[]</returns>
+    public static IEnumerable<byte> ToBytes(this object value, Encoding? encoder = null!)
+    {
+        return value.ToString()!.ToBytes(encoder);
+    }
+
+    /// <summary>
+    /// Masks this object by returning a sha256 hash string.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <returns>short</returns>
+    public static string Mask(this object value)
+    {
+        return value.ToString()!.Mask();
+    } 
+
+    /// <summary>
+    /// Returns true if this object is a properly formatted Json string.
+    /// TODO: Needs improvement this should be a strong check and the dependency does error correction.
+    /// </summary>
+    /// <param name="value">This string</param>
+    /// <returns>bool</returns>
+    public static bool IsValidJson(this object value)
+    {
+        return value.ToString()!.IsValidJson();
+    }
+    
+    /// <summary>
+    /// Escapes characters in this object that have special meaning in Json.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <returns>string</returns>
+    public static string EscapeForJson(this object value)
+    {
+        return value.ToString()!.EscapeForJson();
+    }
+
+    /// <summary>
+    /// Escapes characters in this object that have special meaning in Sql.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static string EscapeForSql(this object value)
+    {
+        return value.ToString()!.EscapeForSql();
+    }
+
+    #endregion
 
     #region IEnumerable<byte> Extensions
 
@@ -319,9 +497,11 @@ public static class Extensions
     }
 
     #endregion
+    
+    #region JSON Methods
 
     /// <summary>
-    /// Returns a json string of this serialized object.
+    /// Returns a json string from this serialized object.
     /// </summary>
     /// <param name="value">This object</param>
     /// <typeparam name="T">This type.</typeparam>
@@ -332,108 +512,6 @@ public static class Extensions
         return json;
     }
 
-    #region JSON Methods
-    /*
-    /// <summary>
-    /// Serializes the collection of string to Json.
-    /// </summary>
-    /// <param name="values">string[]</param>
-    /// <returns>string</returns>
-    public static string ToJson(this IEnumerable<string> values)
-    {
-        var json = values.Aggregate("[", (current, value) => current + $"\"{value.EscapeForJson()}\",");
-
-        json = json[..^1] + "]";
-
-        return json;
-    }
-
-    /// <summary>
-    /// Serializes the collection of short to Json.
-    /// </summary>
-    /// <param name="values">short[]</param>
-    /// <returns>string</returns>
-    public static string ToJson(this IEnumerable<short> values)
-    {
-        var json = values.Aggregate("[", (current, value) => current + $"{value.ToString()},");
-
-        json = json[..^1] + "]";
-
-        return json;
-    }
-
-    /// <summary>
-    /// Serializes this collection of int to Json.
-    /// </summary>
-    /// <param name="values">int[]</param>
-    /// <returns>string</returns>
-    public static string ToJson(this IEnumerable<int> values)
-    {
-        var json = values.Aggregate("[", (current, value) => current + $"{value.ToString()},");
-
-        json = json[..^1] + "]";
-
-        return json;
-    }
-
-    /// <summary>
-    /// Serializes this collection of long to Json.
-    /// </summary>
-    /// <param name="values">long[]</param>
-    /// <returns>string</returns>
-    public static string ToJson(this IEnumerable<long> values)
-    {
-        var json = values.Aggregate("[", (current, value) => current + $"{value.ToString()},");
-
-        json = json[..^1] + "]";
-
-        return json;
-    }
-
-    /// <summary>
-    /// Serializes this collection of decimal to Json.
-    /// </summary>
-    /// <param name="values">decimal[]</param>
-    /// <returns>string</returns>
-    public static string ToJson(this IEnumerable<decimal> values)
-    {
-        var json = values.Aggregate("[",
-            (current, value) => current + $"{value.ToString(CultureInfo.InvariantCulture)},");
-
-        json = json[..^1] + "]";
-
-        return json;
-    }
-
-    /// <summary>
-    /// Serializes this collection of doubles to Json.
-    /// </summary>
-    /// <param name="values">This double[]</param>
-    /// <returns>string</returns>
-    public static string ToJson(this IEnumerable<double> values)
-    {
-        var json = values.Aggregate("[",
-            (current, value) => current + $"{value.ToString(CultureInfo.InvariantCulture)},");
-
-        json = json[..^1] + "]";
-
-        return json;
-    }
-
-    /// <summary>
-    /// Serializes this collection of DateTimes to Json.
-    /// </summary>
-    /// <param name="values">This DateTime[]</param>
-    /// <returns>string</returns>
-    public static string ToJson(this IEnumerable<DateTime> values)
-    {
-        var json = values.Aggregate("[", (current, value) => current + $"{value:yyyy-MM-ddTHH:mm:ss.ffffzzz},");
-
-        json = json[..^1] + "]";
-
-        return json;
-    }
-    */
     #endregion
 
     #region Helper Methods
