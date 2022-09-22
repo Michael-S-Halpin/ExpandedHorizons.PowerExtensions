@@ -86,6 +86,17 @@ public static class Extensions
     /// Converts this string to a short.
     /// </summary>
     /// <param name="value">This string.</param>
+    /// <returns>bool</returns>
+    public static bool ToBool(this string value)
+    {
+        var boolean = Convert.ToBoolean(value);
+        return boolean;
+    }
+
+    /// <summary>
+    /// Converts this string to a short.
+    /// </summary>
+    /// <param name="value">This string.</param>
     /// <returns>short</returns>
     public static short ToShort(this string value)
     {
@@ -360,6 +371,16 @@ public static class Extensions
     public static bool IsNullOrWhiteSpace(this object value)
     {
         return value.ToString()!.IsNullOrWhiteSpace();
+    }
+
+    /// <summary>
+    /// Converts this object to a boolean.
+    /// </summary>
+    /// <param name="value">This string.</param>
+    /// <returns>short</returns>
+    public static bool ToBool(this object value)
+    {
+        return value.ToString()!.ToBool();
     }
 
     /// <summary>
