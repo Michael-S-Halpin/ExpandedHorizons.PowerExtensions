@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
@@ -517,7 +518,7 @@ public static class Extensions
         return text;
     }
 
-    public static string GetDominantValue(this IEnumerable<string> value)
+    public static T GetDominantValue<T>(this IEnumerable<T> value)
     {
         var dominant = value
             .GroupBy(i => i)
@@ -525,6 +526,18 @@ public static class Extensions
             .Select(g => g.Key)
             .First();
         return dominant;
+    }
+
+    public static IEnumerable<T> GetColumnAsList<T>(this DataTable value, string column)
+    {
+        var items = value.AsEnumerable().Select(o => o[column]).Cast<T>().ToList();
+        return items;
+    }
+    
+    public static IEnumerable<T> GetColumnAsList<T>(this DataTable value, int index)
+    {
+        var items = value.AsEnumerable().Select(o => o[index]).Cast<T>().ToList();
+        return items;
     }
     
     #endregion

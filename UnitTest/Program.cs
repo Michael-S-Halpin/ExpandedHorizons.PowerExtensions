@@ -1,4 +1,26 @@
-﻿var t = new object[13];
+﻿using System.Data;
+
+var dt = new DataTable();
+
+dt.Columns.Add(new DataColumn("Col1", typeof(string)));
+dt.Columns.Add(new DataColumn("Col2", typeof(int)));
+dt.Columns.Add(new DataColumn("Col3", typeof(decimal)));
+
+var dr0 = dt.NewRow();
+dr0["Col1"] = "qwer";
+dr0["Col2"] = 12;
+dr0["Col3"] = 99.99m;
+var dr1 = dt.NewRow();
+dr1["Col1"] = "asdf";
+dr1["Col2"] = 10;
+dr1["Col3"] = 9.99m;
+
+dt.Rows.Add(dr0);
+dt.Rows.Add(dr1);
+
+var qqq = dt.GetColumnAsList<decimal>("Col3");
+
+var t = new object[13];
 
 t[0] = " ".IsNullOrWhiteSpace();
 t[1] = string.Empty.IsNullOrEmpty();
