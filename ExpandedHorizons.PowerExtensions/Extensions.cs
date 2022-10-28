@@ -517,6 +517,16 @@ public static class Extensions
         return text;
     }
 
+    public static string GetDominantValue(this IEnumerable<string> value)
+    {
+        var dominant = value
+            .GroupBy(i => i)
+            .OrderByDescending(g => g.Count())
+            .Select(g => g.Key)
+            .First();
+        return dominant;
+    }
+    
     #endregion
     
     #region JSON Methods
