@@ -8,7 +8,6 @@ using System.Web;
 using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
 
 // ReSharper disable once CheckNamespace UnusedType.Global
 [SuppressMessage("Design", "CA1050:Declare types in namespaces")]
@@ -309,6 +308,17 @@ public static class Extensions
         return text;
     }
 
+    /// <summary>
+    /// Trims white space unicode characters that are not caught by normal trim.
+    /// </summary>
+    /// <param name="value">This string</param>
+    /// <returns>string</returns>
+    public static string uTrim(this string value)
+    {
+        var text = Regex.Replace(value.Trim(), @"[^\u0009\u000A\u000D\u0020-\u007E]", "");
+        return text;
+    }
+    
     #endregion
     
     #region Object Extensions
@@ -518,6 +528,12 @@ public static class Extensions
         return text;
     }
 
+    /// <summary>
+    /// Gets the most dominant value in the list.
+    /// </summary>
+    /// <param name="value">This IEnumerable.</param>
+    /// <typeparam name="T">This data type.</typeparam>
+    /// <returns>T</returns>
     public static T GetDominantValue<T>(this IEnumerable<T> value)
     {
         var dominant = value
@@ -528,10 +544,52 @@ public static class Extensions
         return dominant;
     }
 
+    /// <summary>
+    /// Removes any instance of the specified text in this collection.
+    /// </summary>
+    /// <param name="values">This IEnumerable</param>
+    /// <param name="text">The text to remove.</param>
+    /// <returns>IEnumerable[string]</returns>
+    public static IEnumerable<string> RemoveAny(this IEnumerable<string> values, string text)
+    {
+        return values.Where(value => value != text).ToList();
+    }
+
+    /// <summary>
+    /// Makes the entire collection upper case. 
+    /// </summary>
+    /// <param name="values">This IEnumerable</param>
+    /// <returns>IEnumerable[string]</returns>
+    public static IEnumerable<string> ToUpper(this IEnumerable<string> values)
+    {
+        var list = values.Select(value => value.ToUpper()).ToList();
+        return list;
+    }
+    
+    /// <summary>
+    /// Makes the entire collection lower case.
+    /// </summary>
+    /// <param name="values">This IEnumerable</param>
+    /// <returns>IEnumerable[string]</returns>
+    public static IEnumerable<string> ToLower(this IEnumerable<string> values)
+    {
+        var list = values.Select(value => value.ToLower()).ToList();
+        return list;
+    }
+    
+    #endregion
+    
+    #region DataTable Methods
+    
     public static IEnumerable<T> GetColumnAsList<T>(this DataTable value, string column)
     {
-        var items = value.AsEnumerable().Select(o => o[column]).Cast<T>().ToList();
-        return items;
+        var list = new List<T>();
+        var items = value.AsEnumerable().Select(o => o[column]).ToList();
+        foreach (var item in items)
+        {
+            try { list.Add((T)item); } catch (InvalidCastException) { }
+        }
+        return list;
     }
     
     public static IEnumerable<T> GetColumnAsList<T>(this DataTable value, int index)
@@ -539,7 +597,7 @@ public static class Extensions
         var items = value.AsEnumerable().Select(o => o[index]).Cast<T>().ToList();
         return items;
     }
-    
+
     #endregion
     
     #region JSON Methods

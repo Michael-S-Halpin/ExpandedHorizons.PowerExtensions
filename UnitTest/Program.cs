@@ -11,14 +11,14 @@ dr0["Col1"] = "qwer";
 dr0["Col2"] = 12;
 dr0["Col3"] = 99.99m;
 var dr1 = dt.NewRow();
-dr1["Col1"] = "asdf";
+dr1["Col1"] = System.DBNull.Value;
 dr1["Col2"] = 10;
 dr1["Col3"] = 9.99m;
 
 dt.Rows.Add(dr0);
 dt.Rows.Add(dr1);
 
-var qqq = dt.GetColumnAsList<decimal>("Col3");
+var qqq = dt.GetColumnAsList<string>("Col1");
 
 var t = new object[13];
 
