@@ -302,7 +302,7 @@ public static class Extensions
     /// </summary>
     /// <param name="value">This string</param>
     /// <returns>string</returns>
-    public static string TrimExtended(this string value)
+    public static string XTrim(this string value)
     {
         var text = Regex.Replace(value.Trim(), @"[^\u0009\u000A\u000D\u0020-\u007E]", "");
         return text;
