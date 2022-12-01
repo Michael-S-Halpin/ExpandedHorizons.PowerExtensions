@@ -38,17 +38,6 @@ public static class Extensions
     }
     
     /// <summary>
-    /// Returns true of this string is a strict number.
-    /// </summary>
-    /// <param name="value">This string</param>
-    /// <returns>bool</returns>
-    public static bool IsNumber(this string value)
-    {
-        var flag = double.TryParse(value, out _);
-        return flag;
-    }
-    
-    /// <summary>
     /// Remove all instances of text in this string.
     /// </summary>
     /// <param name="value">This string</param>
@@ -70,7 +59,7 @@ public static class Extensions
         var flag = string.IsNullOrEmpty(value);
         return flag;
     }
-
+    
     /// <summary>
     /// Returns whether or not this string is null, empty, or white space.
     /// </summary>
@@ -254,7 +243,7 @@ public static class Extensions
             {
                 DuplicatePropertyNameHandling = DuplicatePropertyNameHandling.Error
             };
-            var obj = JToken.Parse(value, settings);
+            JToken.Parse(value, settings);
 
             return true;
         }
@@ -313,7 +302,7 @@ public static class Extensions
     /// </summary>
     /// <param name="value">This string</param>
     /// <returns>string</returns>
-    public static string uTrim(this string value)
+    public static string TrimExtended(this string value)
     {
         var text = Regex.Replace(value.Trim(), @"[^\u0009\u000A\u000D\u0020-\u007E]", "");
         return text;
@@ -341,16 +330,6 @@ public static class Extensions
     public static bool IsNumeric(this object value)
     {
         return value.ToString()!.IsNumeric();
-    }
-    
-    /// <summary>
-    /// Returns true of this object is a strict number.
-    /// </summary>
-    /// <param name="value">This string</param>
-    /// <returns>bool</returns>
-    public static bool IsNumber(this object value)
-    {
-        return value.ToString()!.IsNumber();
     }
     
     /// <summary>
@@ -509,8 +488,14 @@ public static class Extensions
 
     #endregion
 
-    #region IEnumerable<byte> Extensions
+    #region IEnumerable Extensions
 
+    /// <summary>
+    /// Converts a collection of bytes to a string.
+    /// </summary>
+    /// <param name="value">This collection.</param>
+    /// <param name="encoder">The type of encoding to use.</param>
+    /// <returns>string</returns>
     public static string ToByteString(this IEnumerable<byte> value, Encoding? encoder = null)
     {
         encoder ??= Encoding.Default;
@@ -578,7 +563,44 @@ public static class Extensions
     }
     
     #endregion
+
+    #region List Extensions
+
+    /// <summary>
+    /// Removes any instance of the specified text in this collection.
+    /// </summary>
+    /// <param name="values">This IEnumerable</param>
+    /// <param name="text">The text to remove.</param>
+    /// <returns>List[string]</returns>
+    public static List<string> RemoveAny(this List<string> values, string text)
+    {
+        return values.Where(value => value != text).ToList();
+    }
+
+    /// <summary>
+    /// Makes the entire collection upper case. 
+    /// </summary>
+    /// <param name="values">This IEnumerable</param>
+    /// <returns>List[string]</returns>
+    public static List<string> ToUpper(this List<string> values)
+    {
+        var list = values.Select(value => value.ToUpper()).ToList();
+        return list;
+    }
     
+    /// <summary>
+    /// Makes the entire collection lower case.
+    /// </summary>
+    /// <param name="values">This IEnumerable</param>
+    /// <returns>List[string]</returns>
+    public static List<string> ToLower(this List<string> values)
+    {
+        var list = values.Select(value => value.ToLower()).ToList();
+        return list;
+    }
+    
+    #endregion
+
     #region DataTable Methods
     
     public static IEnumerable<T> GetColumnAsList<T>(this DataTable value, string column)
@@ -600,7 +622,7 @@ public static class Extensions
 
     #endregion
     
-    #region JSON Methods
+    #region All Objects Methods
 
     /// <summary>
     /// Returns a json string from this serialized object.
@@ -608,10 +630,22 @@ public static class Extensions
     /// <param name="value">This object</param>
     /// <typeparam name="T">This type.</typeparam>
     /// <returns>string</returns>
-    public static string ToJson<T>(this T value) //where T : IComparable<T>
+    public static string ToJson<T>(this T value) 
     {
         var json = JsonConvert.SerializeObject(value);
         return json;
+    }
+
+    /// <summary>
+    /// Returns true if this object is DbNull.
+    /// </summary>
+    /// <param name="value">This instance.</param>
+    /// <typeparam name="T">Type of this instance.</typeparam>
+    /// <returns>bool</returns>
+    public static bool IsDbNull<T>(this T value)
+    {
+        var flag = Information.IsDBNull(value);
+        return flag;
     }
 
     #endregion
